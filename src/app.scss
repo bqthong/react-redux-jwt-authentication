@@ -1,0 +1,21 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.app-wraper {
+  position: relative;
+  min-height: calc(100vh - 30px);
+}
+#app-header {
+  margin-bottom: 30px;
+}
+#app-footer { 
+  position: relative;
+  bottom: 0;
+  height: 30px;
+  width: 100%;
+  background: #cccccc;
+  text-align: center;
+}
+
+

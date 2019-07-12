@@ -1,0 +1,49 @@
+.login-container {
+  padding: 15px;
+  .login-wrapper {
+    position: relative;
+    margin: 0 auto;
+    width: 460px;
+    .login-form {
+      margin: 120px auto 0;
+      padding: 40px;
+      border: 1px solid #ebebeb;
+      border-radius: 5px;
+      .input {
+        height: 44px;
+      }
+      .login-alert {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .login-logo {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .login-divider {
+        position: relative;
+        border-top: 1px solid #ebebeb;
+        margin: 25px 0 10px;
+        text-align: center;
+        .login-divider-text {
+          position: relative;
+          background-color: #fff;
+          padding: 5px;
+          top: -14px;
+        }
+      }
+    }
+  }
+}
+$smartphone-width: 480px;
+@media screen and (max-width: $smartphone-width) {
+  .login-container {
+    .login-wrapper {
+      width: 100%;
+      .login-form {
+        margin: 60px auto 0;
+        padding: 30px;
+      }
+    }
+  }
+}
