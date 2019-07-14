@@ -10,11 +10,17 @@ const signUpAPI = (payload) => {
 
 function* performSignUp(payload) {
   try {
-    const response = yield call(signUpAPI, payload.requestBody);
-    if (response.data.status === 200) {
-      yield put(signUpSuccess(response.data));
+    // const response = yield call(signUpAPI, payload.requestBody);
+    const fakeResponse = {
+      data: {
+        status: 200,
+        message: 'Created user successfully ! But no database =]]'
+      }
+    } 
+    if (fakeResponse.data.status === 200) {
+      yield put(signUpSuccess(fakeResponse.data));
     } else {
-      yield put(signUpFail(response.data));
+      yield put(signUpFail(fakeResponse.data));
     }
   } catch (error) {
     yield put(signUpFail(error));

@@ -8,6 +8,7 @@ const initCountState = {
 }
 
 const SignUpReducer = (state = initCountState, action) => {
+  console.log(action);
   switch (action.type) {
     case SINGUP_IS_LOADING:
       return {
@@ -24,7 +25,7 @@ const SignUpReducer = (state = initCountState, action) => {
     case SINGUP_ERROR:
       return {
         ...state,
-        message: action.response.message || 'Some thing went wrong !',
+        message: action.response.message,
         hasError: true,
         isLoading: false
       }  

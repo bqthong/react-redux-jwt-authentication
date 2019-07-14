@@ -35,7 +35,8 @@ class SignUpPage extends Component {
     this.email = React.createRef();
   }
   
-  performSignUpForm = () => {
+  performSignUpForm = (event) => {
+    event.preventDefault();
     const requestBody = {
       name: this.name.current.value,
       username: this.username.current.value,
@@ -61,7 +62,7 @@ class SignUpPage extends Component {
           <meta name="description" content="Signup page" />
         </Helmet>
         <div className="signup-wrapper">
-          <Form className="signup-form" >
+          <Form className="signup-form" onSubmit={this.performSignUpForm}>
             <div className="signup-logo"><h2>LOGO</h2></div>
             <div className="signup-alert">{isLoading ? showLoading : alert}</div>
             <Form.Group controlId="formName">
@@ -76,7 +77,7 @@ class SignUpPage extends Component {
             <Form.Group controlId="formEmail">
               <Form.Control className="input" type="email" ref={this.email} placeholder="Email" />
             </Form.Group>
-            <Button className="signup-button" variant="primary" onClick={this.performSignUpForm} size="lg" block>Sign Up</Button>
+            <Button type="submit" className="signup-button" variant="primary" size="lg" block>Sign Up</Button>
             <div>By clicking "Sign Up", you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Statement</a>.</div>
           </Form>
         </div>

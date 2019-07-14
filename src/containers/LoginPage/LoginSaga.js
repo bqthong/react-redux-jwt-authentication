@@ -24,13 +24,14 @@ function* performLogin(payload) {
         message: 'Logged in successfully !'
       }
     } 
-    if (fakeResponse.data.status === 200) {
+    if (fakeResponse.data.status === 200 && payload.requestBody.username === 'admin' && payload.requestBody.password === 'admin') {
       yield put(authenticate());
       yield put(loginSuccess(fakeResponse.data));
       const token = fakeResponse.headers.Authorization.replace('Bearer ',''); 
       localStorage.setItem('token', token);
     } else {
       yield put(unAuthenticate());
+      fakeResponse.data.message = 'Username or password is incorrect !';
       yield put(loginFail(fakeResponse.data));
     }
   } catch (error) {

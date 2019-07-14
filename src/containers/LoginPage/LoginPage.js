@@ -33,7 +33,8 @@ class LoginPage extends Component {
     this.password = React.createRef();
   }
 
-  performLoginForm = () => {
+  performLoginForm = (event) => {
+    event.preventDefault();
     const requestBody = {
       username: this.username.current.value,
       password: this.password.current.value
@@ -57,7 +58,7 @@ class LoginPage extends Component {
           <meta name="description" content="Login page" />
         </Helmet>
         <div className="login-wrapper">
-          <Form className="login-form">
+          <Form className="login-form" onSubmit={this.performLoginForm}>
             <div className="login-logo"><h2>LOGO</h2></div>
             <div className="login-alert">{isLoading ? showLoading : alert}</div>
               <Form.Group controlId="formEmail">
@@ -76,7 +77,7 @@ class LoginPage extends Component {
                 />
               </Form.Group>
               <Form.Group controlId="formBtnLogin">
-                <Button variant="primary" onClick={this.performLoginForm} size="lg" block>Log In</Button>
+                <Button type="submit" variant="primary" size="lg" block>Log In</Button>
               </Form.Group>
               <Form.Group controlId="formFogotPassword">
                 <a href="/">Forgot your password ?</a>
