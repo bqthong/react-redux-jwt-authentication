@@ -7,6 +7,8 @@ const initCountState = {
   isAuthenticated: false
 }
 const LoginReducer = (state = initCountState, action) => {
+  console.log(action);
+  
   switch (action.type) {
     case LOGIN_IS_LOADING:
       return {
@@ -16,13 +18,13 @@ const LoginReducer = (state = initCountState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        message: action.message,
+        message: action.data.message,
         isLoading: false
       }
     case LOGIN_ERROR:
       return {
         ...state,
-        message: action.message || 'Something went wrong !',
+        message: action.data.message,
         isLoading: false,
         hasError: true
       }
@@ -39,7 +41,7 @@ const LoginReducer = (state = initCountState, action) => {
     case LOGOUT_ERROR:
       return {
         ...state,
-        message: action.message,
+        message: action.data.message,
         isLoading: false
       }    
     case AUTHENTICATED:

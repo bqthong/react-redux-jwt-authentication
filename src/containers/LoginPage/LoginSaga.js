@@ -14,14 +14,24 @@ const logoutAPI = () => {
 
 function* performLogin(payload) {
   try {
-    const response = yield call(loginAPI, payload.requestBody);
-    if (response.data.status === 200) {
+    // const response = yield call(loginAPI, payload.requestBody);
+    const fakeResponse = {
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7BhQ'
+      },
+      data: {
+        status: 200,
+        message: 'Logged in successfully !'
+      }
+    } 
+    if (fakeResponse.data.status === 200) {
       yield put(authenticate());
-      yield put(loginSuccess(response.data));
-      localStorage.setItem('token', response.data.token);
+      yield put(loginSuccess(fakeResponse.data));
+      const token = fakeResponse.headers.Authorization.replace('Bearer ',''); 
+      localStorage.setItem('token', token);
     } else {
       yield put(unAuthenticate());
-      yield put(loginFail(response));
+      yield put(loginFail(fakeResponse.data));
     }
   } catch (error) {
     yield put(loginFail(error));
@@ -30,9 +40,15 @@ function* performLogin(payload) {
 
 function* performLogout() {
   try {
-    const response = yield call(logoutAPI);
+    // const response = yield call(logoutAPI);
+    const fakeResponse = {
+      data: {
+        status: 200,
+        message: 'Logged out successfully !'
+      }
+    }
     yield put(unAuthenticate());
-    yield put(logoutSuccess(response.data));
+    yield put(logoutSuccess(fakeResponse.data));
     localStorage.clear();
   } catch (error) {
     yield put(logoutFail(error));
