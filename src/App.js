@@ -82,7 +82,7 @@ const App = () => (
       <AppRoute exact path="/login" component={notRequireAuth(LoginPage)} layout={EmptyLayout} />
       <AppRoute exact path="/signup" component={notRequireAuth(SignUpPage)} layout={EmptyLayout} />
       <AppRoute exact path="/about" component={AboutPage} layout={MainLayout} />
-      <AppRoute exact path="/404" component={NotFoundPage} layout={MainLayout} />
+      <AppRoute component={NotFoundPage} layout={MainLayout} />
     </Switch>
   </Router>
 )
