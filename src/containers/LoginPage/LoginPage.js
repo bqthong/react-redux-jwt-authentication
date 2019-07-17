@@ -48,10 +48,10 @@ class LoginPage extends Component {
     let validator = this.state.validator;
     switch (name) {
       case 'username': 
-      validator.username = value.length === 0 ? 'Username required !' : '';
+      validator.username = value.length === 0 ? 'Please input username !' : '';
         break;
       case 'password': 
-      validator.password = value.length === 0 ? 'Password required !' : '';
+      validator.password = value.length === 0 ? 'Please input password !' : '';
         break;          
       default:
         break;

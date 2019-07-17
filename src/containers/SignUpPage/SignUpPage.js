@@ -52,9 +52,9 @@ class SignUpPage extends Component {
     switch (name) {
       case 'name': 
         if (value.length === 0) {
-          validator.name = 'Name required !';
-        } else if (value.length > 10) {
-          validator.name =  'Name must be 20 character !';
+          validator.name = 'Please input name !';
+        } else if (value.length < 1 || value.length > 32) {
+          validator.name =  'Name must be 1-32 characters long !';
         } else {
           validator.name = '';
         }
@@ -62,9 +62,9 @@ class SignUpPage extends Component {
       case 'username': 
       let usernameRegex = /^[a-zA-Z0-9]{4,}\d*$/;
       if (value.length === 0) {
-        validator.username = 'Username required !';
+        validator.username = 'Please input username !';
       } else if (!usernameRegex.test(value)) {
-        validator.username =  'Username must be at least 4 character, include lowercase or number !';
+        validator.username =  'Username must be at least 4 characters and must contain only lowercase letters, numbers';
       } else {
         validator.username = '';
       }
@@ -72,7 +72,7 @@ class SignUpPage extends Component {
       case 'email': 
       let emailRegex = /^[a-z][a-z0-9_]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
       if (value.length === 0) {
-        validator.email = 'Email required !';
+        validator.email = 'Please input email !';
       } else if (!emailRegex.test(value)) {
         validator.email =  'Invalid email address !';
       } else {
@@ -82,9 +82,9 @@ class SignUpPage extends Component {
       case 'password': 
       let passwordRegex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
       if (value.length === 0) {
-        validator.password = 'Password required !';
+        validator.password = 'Please input password !';
       } else if (!passwordRegex.test(value)) {
-        validator.password =  'Password must be at least 8 character, one number, one lowercase, one uppercase !';
+        validator.password =  'Password must be at least 8 characters and must contain at least: one letter (a-z), one capitalized letter(A-Z), one special character, one digit (0-9)';
       } else {
         validator.password = '';
       }
