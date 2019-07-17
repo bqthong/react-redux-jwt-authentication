@@ -29,8 +29,7 @@ export const unAuthenticate = () => {
 
 export const loginSuccess = (response) => {
   return {
-    type: LOGIN_SUCCESS,
-    data: response
+    type: LOGIN_SUCCESS
   }
 }
 
@@ -43,14 +42,12 @@ export const loginFail = (response) => {
 
 export const logoutSuccess = (response) => {
   return {
-    type: LOGOUT_SUCCESS,
-    data: response
+    type: LOGOUT_SUCCESS
   }
 }
 
 export const logoutFail = (response) => {
   return {
-    type: LOGOUT_ERROR,
-    data: response
+    type: LOGOUT_ERROR
   }
 }
