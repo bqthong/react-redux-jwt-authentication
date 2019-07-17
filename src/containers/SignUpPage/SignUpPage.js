@@ -9,6 +9,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import './signup.scss';
 import { performSignUp } from './SignUpActions';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import  FormControlValidator  from '../../components/FormControlValidator';
 
 /**
  * This is to map data from the store to the component
@@ -29,25 +30,92 @@ const mapDispatchToProps = dispatch => ({
 class SignUpPage extends Component {
   constructor(props) {
     super(props);
-    this.name = React.createRef();
-    this.username = React.createRef();
-    this.password = React.createRef();
-    this.email = React.createRef();
+    this.state = {
+      name: null,
+      username: null,
+      email: null,
+      password: null,
+      validator: {
+        name: null,
+        username: null,
+        email: null,
+        password: null,
+      },
+      formValid: false
+    };
+  }
+
+  handleChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    let validator = this.state.validator;
+    switch (name) {
+      case 'name': 
+        if (value.length === 0) {
+          validator.name = 'Name required !';
+        } else if (value.length > 10) {
+          validator.name =  'Name must be 20 character !';
+        } else {
+          validator.name = '';
+        }
+        break;
+      case 'username': 
+      let usernameRegex = /^[a-zA-Z0-9]{4,}\d*$/;
+      if (value.length === 0) {
+        validator.username = 'Username required !';
+      } else if (!usernameRegex.test(value)) {
+        validator.username =  'Username must be at least 4 character, include lowercase or number !';
+      } else {
+        validator.username = '';
+      }
+        break;
+      case 'email': 
+      let emailRegex = /^[a-z][a-z0-9_]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
+      if (value.length === 0) {
+        validator.email = 'Email required !';
+      } else if (!emailRegex.test(value)) {
+        validator.email =  'Invalid email address !';
+      } else {
+        validator.email = '';
+      }
+        break;
+      case 'password': 
+      let passwordRegex = /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/;
+      if (value.length === 0) {
+        validator.password = 'Password required !';
+      } else if (!passwordRegex.test(value)) {
+        validator.password =  'Password must be at least 8 character, one number, one lowercase, one uppercase !';
+      } else {
+        validator.password = '';
+      }
+        break;          
+      default:
+        break;
+    }
+    this.setState({
+      validator,
+      [name]: value,
+      formValid: validator.name === '' 
+        && validator.username === '' 
+        && validator.email === '' 
+        && validator.password === ''
+    });
   }
   
   performSignUpForm = (event) => {
     event.preventDefault();
     const requestBody = {
-      name: this.name.current.value,
-      username: this.username.current.value,
-      password: this.password.current.value,
-      email: this.email.current.value
+      name: this.state.name,
+      username: this.state.username,
+      password: this.state.password,
+      email: this.state.email
     }
     this.props.signUp(requestBody);
   }
 
   render() {
     const { isLoading, message, hasError, isSuccess } = this.props;
+    const { validator } = this.state;
     let showLoading = <LoadingSpinner />;
     let alert = null;
     if (hasError) {
@@ -66,19 +134,19 @@ class SignUpPage extends Component {
             <div className="signup-logo"><h2>LOGO</h2></div>
             <div className="signup-alert">{isLoading ? showLoading : alert}</div>
             <Form.Group controlId="formName">
-              <Form.Control className="input" type="text" ref={this.name} placeholder="Name" />
+              <FormControlValidator className="input" type="text" name="name" onChange={this.handleChange} placeholder="Name" validator={validator}/>
             </Form.Group>
             <Form.Group controlId="formUsername">
-              <Form.Control className="input" type="username" ref={this.username} placeholder="Username" />
+              <FormControlValidator className="input" type="username" name="username" onChange={this.handleChange} placeholder="Username" validator={validator}/>
             </Form.Group>
             <Form.Group controlId="formPassword">
-              <Form.Control className="input" type="password" ref={this.password} placeholder="Password" />
+              <FormControlValidator className="input" type="password" name="password" onChange={this.handleChange} placeholder="Password" validator={validator}/>
             </Form.Group>
             <Form.Group controlId="formEmail">
-              <Form.Control className="input" type="email" ref={this.email} placeholder="Email" />
+              <FormControlValidator className="input" type="email" name="email" onChange={this.handleChange} placeholder="Email" validator={validator}/>
             </Form.Group>
-            <Button type="submit" className="signup-button" variant="primary" size="lg" block>Sign Up</Button>
-            <div>By clicking "Sign Up", you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Statement</a>.</div>
+            <Button type="submit" className="signup-button" variant="primary" size="lg" disabled={!this.state.formValid} block>Sign Up</Button>
+            <div>By clicking "Sign Up", you agree to our <a href="/">Terms of Service</a> and <a href="/">Privacy Statement</a>.</div>
           </Form>
         </div>
       </div>

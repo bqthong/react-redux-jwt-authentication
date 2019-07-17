@@ -8,7 +8,6 @@ const initCountState = {
 }
 
 const SignUpReducer = (state = initCountState, action) => {
-  console.log(action);
   switch (action.type) {
     case SINGUP_IS_LOADING:
       return {

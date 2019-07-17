@@ -7,8 +7,6 @@ const initCountState = {
   isAuthenticated: false
 }
 const LoginReducer = (state = initCountState, action) => {
-  console.log(action);
-  
   switch (action.type) {
     case LOGIN_IS_LOADING:
       return {
