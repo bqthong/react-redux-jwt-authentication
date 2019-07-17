@@ -148,6 +148,7 @@ class SignUpPage extends Component {
             <Button type="submit" className="signup-button" variant="primary" size="lg" disabled={!this.state.formValid} block>Sign Up</Button>
             <div>By clicking "Sign Up", you agree to our <a href="/">Terms of Service</a> and <a href="/">Privacy Statement</a>.</div>
           </Form>
+          <div className="credit">Made with <span role="img" aria-label="heart-emoji">❤️</span> by <a href="https://github.com/bqthong">Thong</a></div>
         </div>
       </div>
     );

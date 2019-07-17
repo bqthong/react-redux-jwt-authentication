@@ -116,6 +116,7 @@ class LoginPage extends Component {
               <div className="login-divider"><span className="login-divider-text">OR</span></div>
               <Link to="/signup"><Button variant="secondary" type="submit" size="lg" block>Sign Up</Button></Link>
           </Form>
+          <div className="credit">Made with <span role="img" aria-label="heart-emoji">❤️</span> by <a href="https://github.com/bqthong">Thong</a></div>
         </div>
       </div>
     );
