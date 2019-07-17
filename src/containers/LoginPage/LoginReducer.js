@@ -16,7 +16,6 @@ const LoginReducer = (state = initCountState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        message: action.data.message,
         isLoading: false
       }
     case LOGIN_ERROR:
@@ -39,7 +38,6 @@ const LoginReducer = (state = initCountState, action) => {
     case LOGOUT_ERROR:
       return {
         ...state,
-        message: action.data.message,
         isLoading: false
       }    
     case AUTHENTICATED:

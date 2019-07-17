@@ -27,7 +27,7 @@ export const unAuthenticate = () => {
   }
 }
 
-export const loginSuccess = (response) => {
+export const loginSuccess = () => {
   return {
     type: LOGIN_SUCCESS
   }
@@ -40,13 +40,13 @@ export const loginFail = (response) => {
   }
 }
 
-export const logoutSuccess = (response) => {
+export const logoutSuccess = () => {
   return {
     type: LOGOUT_SUCCESS
   }
 }
 
-export const logoutFail = (response) => {
+export const logoutFail = () => {
   return {
     type: LOGOUT_ERROR
   }
