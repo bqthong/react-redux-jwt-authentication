@@ -10,6 +10,7 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import './login.scss';
 import { performLogin } from './LoginActions';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import  FormControlValidator  from '../../components/FormControlValidator';
 
 /**
  * This is to map data from the store to the component
@@ -29,21 +30,51 @@ const mapDispatchToProps = dispatch => ({
 class LoginPage extends Component {
   constructor(props) {
     super(props);
-    this.username = React.createRef();
-    this.password = React.createRef();
+    this.state = {
+      name: null,
+      username: null,
+      password: null,
+      validator: {
+        username: null,
+        password: null
+      },
+      formValid: false
+    };
+  }
+
+  handleChange = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    let validator = this.state.validator;
+    switch (name) {
+      case 'username': 
+      validator.username = value.length === 0 ? 'Username required !' : '';
+        break;
+      case 'password': 
+      validator.password = value.length === 0 ? 'Password required !' : '';
+        break;          
+      default:
+        break;
+    }
+    this.setState({
+      validator,
+      [name]: value,
+      formValid: validator.username === '' && validator.password === ''
+    });
   }
 
   performLoginForm = (event) => {
     event.preventDefault();
     const requestBody = {
-      username: this.username.current.value,
-      password: this.password.current.value
+      username: this.state.username,
+      password: this.state.password
     }
     this.props.login(requestBody);
   }
 
   render() {
     const { isLoading, message, hasError, isSuccess } = this.props;
+    const { validator } = this.state;
     let showLoading = <LoadingSpinner />;
     let alert = null;
     if (hasError) {
@@ -62,11 +93,11 @@ class LoginPage extends Component {
             <div className="login-logo"><h2>LOGO</h2></div>
             <div className="login-alert">{isLoading ? showLoading : alert}</div>
               <Form.Group controlId="formEmail">
-                <Form.Control className="input" type="text" ref={this.username} placeholder="Username" />
+                <FormControlValidator className="input" type="text" name="username" onChange={this.handleChange} placeholder="Username" validator={validator}/>
               </Form.Group>
 
               <Form.Group controlId="formPassword">
-                <Form.Control className="input" type="password" ref={this.password} placeholder="Password" />
+                <FormControlValidator className="input" type="password" name="password" onChange={this.handleChange} placeholder="Password" validator={validator}/>
               </Form.Group>
               <Form.Group controlId="formChecbox">
                 <Form.Check 
@@ -77,7 +108,7 @@ class LoginPage extends Component {
                 />
               </Form.Group>
               <Form.Group controlId="formBtnLogin">
-                <Button type="submit" variant="primary" size="lg" block>Log In</Button>
+                <Button type="submit" variant="primary" size="lg" disabled={!this.state.formValid} block>Log In</Button>
               </Form.Group>
               <Form.Group controlId="formFogotPassword">
                 <a href="/">Forgot your password ?</a>
