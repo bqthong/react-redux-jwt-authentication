@@ -1,18 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-/**
- * Containers
- */
-import HomePage from './containers/HomePage';
-import AdminPage from './containers/AdminPage';
-import LoginPage from './containers/LoginPage';
-import SignUpPage from './containers/SignUpPage';
-import AboutPage from './containers/AboutPage';
-import NotFoundPage from './containers/NotFoundPage';
-import Header from './containers/Header';
-import Footer from './containers/Footer';
+import loadable from '@loadable/component';
 
 /**
  * CSS
@@ -24,6 +13,18 @@ import './app.scss';
  */
 import requireAuth from './hoc/requireAuth';
 import notRequireAuth from './hoc/notRequireAuth';
+
+/**
+ * Containers
+ */
+const HomePage = loadable(() => import ('./containers/HomePage'));
+const AdminPage = loadable(() => import ('./containers/AdminPage'));
+const LoginPage = loadable(() => import ('./containers/LoginPage'));
+const SignUpPage = loadable(() => import ('./containers/SignUpPage'));
+const AboutPage = loadable(() => import ('./containers/AboutPage'));
+const NotFoundPage = loadable(() => import ('./containers/NotFoundPage'));
+const Header = loadable(() => import ('./containers/Header'));
+const Footer = loadable(() => import ('./containers/Footer'));
 
 /**
  * Return component with custom layout 
